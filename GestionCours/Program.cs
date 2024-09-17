@@ -16,6 +16,14 @@ namespace GestionCours
             Console.WriteLine("Liste promotion ayant au moins un élève");
             context.Promotions.Where(p =>p.Eleves.Count() >0).ToList().ForEach(p => Console.WriteLine($"- {p.Nom} : {p.Eleves.Count()} élève(s)"));
 
+            Promotion promotionAvecPlusEleve = context.Promotions.OrderByDescending(p =>p.Eleves.Count).FirstOrDefault();
+            Console.WriteLine($"Promotion avec plus d'élève : {promotionAvecPlusEleve}");
+
+            Console.WriteLine("Elèves qui ont passé les titre CDA : ");
+            //Nb: un élève est rattahé à un diplome et le Diplome est rattaché à une promotion
+            context.Eleves.Where(e => e.Promotion.Diplome.Code.Equals("CDA")).ToList().ForEach(e => Console.WriteLine($"- {e}"));
+
+
         }
     }
 }
